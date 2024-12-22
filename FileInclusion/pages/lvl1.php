@@ -22,8 +22,14 @@
         
         if (isset( $_GET[ 'file' ]))        
         {
-          @include($_GET[ 'file' ]);
-          echo"<div align='center'><b><h5>".$_GET[ 'file' ]."</h5></b></div> ";       
+          $allowed_files = ['1.php', '2.php'];
+
+          if (in_array($_GET['file'], $allowed_files)) {
+                    include_once $_GET['file'];
+          } else {
+             echo "<div align='center'><b><h5>Error: File not allowed.</h5></b></div>";
+         }
+          echo "<div align='center'><b><h5>" . htmlspecialchars($_GET['file'], ENT_QUOTES, 'UTF-8') . "</h5></b></div>";   
         }
       ?>
    </body>

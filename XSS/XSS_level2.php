@@ -19,7 +19,7 @@
 <?php
 if (isset($_GET["username"])) {
  	$user = str_replace("<script>", "",$_GET["username"]);
-	echo "Your name is "."$user";
+    echo "Your name is " . htmlspecialchars($_GET["username"], ENT_QUOTES, 'UTF-8');
 }
 ?>
 
