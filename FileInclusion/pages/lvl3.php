@@ -30,8 +30,11 @@
           $secure3=str_replace (array ( ":" , "/" , "..\\", "../" ), "" ,  $secure3);
 
           if (isset($secure3)) 
-            {        
-              include($secure3.".php");
+          {  
+              $allowed_files = ['1.php', '2.php'];
+                           if (in_array($secure3, $allowed_files)) {
+                                             include($secure3.".php");
+                                       }    
             }
         }
       ?>
