@@ -32,10 +32,16 @@
 	//echo "Connected successfully";
 	$source = "";
 	if(isset($_GET["submit"])){
-		$number = $_GET['number'];
-		$query = "SELECT bookname,authorname FROM books WHERE number = '$number'";
-		$result = mysqli_query($conn,$query);
-		$row = @mysqli_num_rows($result);
+                $number = $_GET['number']; // Tomar el valor del usuario
+
+                // Preparar la consulta
+                $stmt = $conn->prepare("SELECT bookname, authorname FROM books WHERE number = ?");
+                $stmt->bind_param("i", $number); // "i" indica que el parámetro es un entero
+                $stmt->execute();
+                // Obtener resultados
+                $result = $stmt->get_result();
+                $row = $result->num_rows;
+
 		echo "<hr>";
 		if($row > 0){
 			echo "<pre>There is a book with this index.</pre>";
