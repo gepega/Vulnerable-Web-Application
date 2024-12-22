@@ -31,8 +31,11 @@
             }
             
             if (isset($secure4)) 
-            {        
-              include($secure4);              
+            {   
+                $allowed_files = ['1.php', '2.php'];
+                if (in_array($_GET['file'], $allowed_files)) {
+                    include($secure4);
+                }     
             }
         }              
       ?>

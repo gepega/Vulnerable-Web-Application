@@ -35,9 +35,11 @@
 	} 
 	//echo "Connected successfully";
 	if(isset($_POST["submit"])){
-		$number = $_POST['number'];
-		$query = "SELECT bookname,authorname FROM books WHERE number = '$number'"; //Is this same with the level 2?
-		$result = mysqli_query($conn,$query);
+
+                $number = trim($_POST["number"]);
+                $result = $stmt->get_result();
+                include_once 'utils.php';
+                $result = fetchBookDetails($conn, $number);
 
 		if (!$result) { //Check result
 		    $message  = 'Invalid query: ' . mysql_error() . "\n";

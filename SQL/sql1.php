@@ -36,12 +36,20 @@
 	//echo "Connected successfully";
 	
 	if(isset($_POST["submit"])){
-		$firstname = $_POST["firstname"];
-		$sql = "SELECT lastname FROM users WHERE firstname='$firstname'";//String
-		$result = mysqli_query($conn,$sql);
+                $firstname = trim($_POST["firstname"]);
+
+                // Preparar una consulta segura con parámetros
+                $stmt = $conn->prepare("SELECT lastname FROM users WHERE firstname = ?");
+                $stmt->bind_param("s", $firstname); // 's' indica que el parámetro es un string
+                //
+                // Ejecutar la consulta preparada
+                $stmt->execute();
+                //
+                // Obtener los resultados
+                $result = $stmt->get_result();
 		
 		if (mysqli_num_rows($result) > 0) {
-        // output data of each row
+                // output data of each row
     		while($row = mysqli_fetch_assoc($result)) {
        			echo $row["lastname"];
        			echo "<br>";
