@@ -27,10 +27,14 @@ if(isset($_POST["submit"])) {
 	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 	$type = $_FILES["file"]["type"];
 
-    if($type != "image/png" && $type != "image/jpeg" ){
-        echo "JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
+        // Lista blanca de extensiones permitidas
+         $allowed_extensions = ['jpg', 'png', 'gif', 'pdf'];
+
+        // Validar extensión del archivo
+        if (!in_array($type, $allowed_extensions)) {
+            echo "Error: Only JPG, PNG, GIF, and PDF files are allowed.";
+            $uploadOk=0;
+        }
     
     if($uploadOk == 1){
         move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);

@@ -23,6 +23,15 @@
 if(isset($_POST["submit"])) {
 	$target_dir = "uploads/";
 	$target_file = $target_dir . basename($_FILES["file"]["name"]);
+
+        // Lista blanca de extensiones permitidas
+        $allowed_extensions = ['jpg', 'png', 'gif', 'pdf'];
+
+        // Validar extensión del archivo
+        if (!in_array($file_type, $allowed_extensions)) {
+            echo "Error: Only JPG, PNG, GIF, and PDF files are allowed.";
+            exit;
+        }
 	
     move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
     echo "File uploaded /uploads/".$_FILES["file"]["name"];
